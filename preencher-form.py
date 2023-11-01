@@ -6,7 +6,7 @@ import random
 
 navegador = webdriver.Chrome()
 
-url = 'https://forms.gle/edAQca2c1QT3vPsM7'
+url = 'https://forms.gle/kxWXNAP6JzRLDCe76'
 
 bairros = [
  'Centro',
@@ -32,20 +32,27 @@ bairros = [
  'Jardinópolis ',
  'Esplanada',
 ]
-selectXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[1]/div[1]'
-selectOptionXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div[5]/span'
-sabendoID = 'i15'
-canalXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div/div[1]/input'
-bairroXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div/div[1]/input'
-botao = '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span/span'
 
-canalTextInput = 'email'
-def aleatorioLojas(a,b):
-    return '{}'.format(random.randint(a,b))
+arrayIdCanaisDeOferta = ['i15', 'i9', 'i12']
+
+arrayIdOutroCanaisOferta = ['i49','i46','i55']
+
+def aleatorioArrays(a,b):
+    return random.randint(a,b)
 
 def aleatorioBairro(a,b):
     bairro = random.randint(a,b)
     return bairros[bairro]
+
+selectXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[1]/div[1]'
+selectOptionXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/div[5]/span'
+
+canalOfertaID = arrayIdCanaisDeOferta[aleatorioArrays(0,2)]
+outroCanalOfertaID = arrayIdOutroCanaisOferta[aleatorioArrays(0,2)]
+
+bairroXPATH = '//*[@id="mG61Hd"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div/div[1]/input'
+botao = '//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div[1]/div/span/span'
+
 
 for i in range(200):
     navegador.get(url)
@@ -57,14 +64,15 @@ for i in range(200):
     navegador.find_element(By.XPATH, selectOptionXPATH).click()
     pyautogui.sleep(0.5)
 
-# CAMPO Sabendo
-    navegador.find_element(By.ID, sabendoID).click()
+# CAMPO Canal oferta
+    navegador.find_element(By.ID, canalOfertaID).click()
+    
+# CAMPO Outro Canal Oferta
+    navegador.find_element(By.ID, outroCanalOfertaID).click()
 
-# CAMPO Canal
-    navegador.find_element(By.XPATH, canalXPATH).send_keys(canalTextInput)
 
 # CAMPO Bairro
-    navegador.find_element(By.XPATH, ).send_keys(aleatorioBairro(0,20))
+    navegador.find_element(By.XPATH, bairroXPATH).send_keys(aleatorioBairro(0,18))
 
 # CAMPO Botao
     navegador.find_element(By.XPATH, botao).click()
